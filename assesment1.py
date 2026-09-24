@@ -1,44 +1,71 @@
-def compare_search_algorithms(arr, target):
-    linear_index = -1
-    linear_comparisons = 0
+def analyze_recursive_iterative(n):
+  
+   def recursive_factorial(x):
+      if x == 0:
+          return 1
+      return x * recursive_factorial(x-1)
 
-    for i in range(len(arr)):
-        linear_comparisons += 1
-        if arr[i] == target:
-            linear_index = i
-            break
+   def iterative_factorial(x):
+      result = 1
+      for i in range(1, x + 1):
+          result *= i
+      return result
 
-    low = 0 
-    high = len(arr) - 1
-    binary_index = -1
-    binary_comparisons = 0
+   def recursive_fibonacci(x):
+     if x == 0:
+         return 0 
+     if x == 1:
+         return 1 
+     return recursive_fibonacci(x - 1) + recursive_fibonacci(x - 2)
 
-    while low <= high:
-        mid = (low + high) // 2
-        binary_comparisons += 1
+   def iterative_fibonnaci(x):
+      if x == 0:
+          return 0
+      if x == 1:
+          return 1
 
-        if arr[mid] == target:
-           binary_index = mid
-           high = mid - 1
-        elif arr[mid] < target:
-          low = mid + 1
-        else:
-          high = mid - 1
+      a = 0
+      b = 1
 
-    if linear_comparisons < binary_comparisons:
-        better = 'Linear Search'
-    elif binary_comparisons < linear_comparisons:
-          better = 'Binary Search'
-    else:
-         better = 'Both Equal'
+      for i in range(2, x + 1):
+          c = a + b
+          a = b
+          b = c
 
-    return[
-        "Search Comparison Report",
-        "Linear Search",
-        f"Index: {linear_index}",
-        f"Comparisons: {linear_comparisons}",
-        "Binary Search",
-        f"Index: {binary_index}",
-        f"Comparisons: {binary_comparisons}",
-        f"Better Algorithm: {better}"
-    ]
+      return b
+
+      recursive_fact = recursive_factorial(n)
+      iterative_fact = iterative_factorial(n)
+      recursive_fib = recursive_fibonacci(n)
+      iterative_fib = iterative_fibonnaci(n)
+
+      recursive_fact_count = n + 1
+      iterative_fact_count = n 
+      iterative_fib_count = n
+      recursive_fib_count = n
+
+      def fib_call_count(x):
+          if x == 0 or x == 1:
+              return 1
+          return 1 + fib_call_count(x - 1) + fib_call_count(x - 2)
+
+      recursive_fib_count = 1
+      a = 1
+      b = 1
+      for i in range(2, n + 1):
+          recursive_fib_count = 1 + a + b
+          a = b
+          b = recursive_fib_count
+
+   return[
+        "Computation Analysis Report",
+        f"Recursive Factorial: {recursive_factorial(n)}",
+        f"Iterative Factorial: {iterative_factorial(n)}",
+        f"Recursive Fibonacci: {recursive_fibonacci(n)}",
+        f"Iterative Fibonacci: {iterative_fibonnaci(n)}",
+        "Operation Count Comparison",
+        f"Recursive Factorial Count: {n + 1}",
+        f"Iterative Factorial Count: {n}",
+        f"Recursive Fibonacci Count: {2 * recursive_fibonacci(n + 1) - 1}",
+        f"Iterative Fibonacci Count: {n}"
+]
